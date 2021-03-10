@@ -49,9 +49,7 @@ public class Windgeschwindigkeit extends WindDaten {
 
     public double getKnoten() {
 
-        double knoten = Math.round((((stundenKilometer / 1.852)) * 100.00) / 100);
-
-        return knoten;
+        return (double) Math.round((((stundenKilometer / 1.852)) * 100.00) / 100);
     }
 
     public int getBeaufort() {
