@@ -75,26 +75,5 @@ public class Windgeschwindigkeit extends WindDaten {
     }
 
 
-    // Overrides
-    @Override
-    public void addWindgeschwindigkeit(Windgeschwindigkeit windgeschwindigkeit) {
-        super.addWindgeschwindigkeit(windgeschwindigkeit);
-    }
-
-    @Override
-    public ArrayList<Windgeschwindigkeit> getWindSpeedValuesList() {
-        return super.getWindSpeedValuesList();
-    }
-
-    @Override
-    public void dummyDaten() {
-        super.dummyDaten();
-    }
-
-    @Override
-    public String getReadableTimestamp() {
-        return super.getReadableTimestamp();
-    }
-
 }
 
