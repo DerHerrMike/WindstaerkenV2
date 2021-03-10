@@ -10,7 +10,7 @@ import java.util.Date;
 public abstract class WindDaten {
 
     protected LocalDateTime localDateTime = LocalDateTime.now();
-    public ArrayList<Windgeschwindigkeit> windSpeedValuesList = new ArrayList<>();
+    protected ArrayList<Windgeschwindigkeit> windSpeedValuesList = new ArrayList<>();
 
 
     // Konstruktor
@@ -30,8 +30,10 @@ public abstract class WindDaten {
         return windSpeedValuesList;
     }
 
-    public LocalDateTime getZeitpunkt() {
-        return localDateTime;
+    public String getZeitpunkt() {
+        var format = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+        return localDateTime.format(format);
+
     }
 
     public void dummyDaten() {
