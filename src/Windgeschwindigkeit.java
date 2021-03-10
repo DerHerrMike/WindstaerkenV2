@@ -1,21 +1,18 @@
-import javax.print.attribute.standard.DateTimeAtProcessing;
-import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Date;
 
 public class Windgeschwindigkeit extends WindDaten {
 
     private double stundenKilometer = 0.02f;
-    double knoten;
-    int beaufort;
+    private double knoten;
+    private int beaufort;
 
-    boolean isOrkan;
-    boolean isWindstill;
-    Scanner scanner = new Scanner(System.in);
+    private boolean orkan;
+    private boolean windstill;
+    private Scanner scanner = new Scanner(System.in);
 
 
     // Konstruktor
