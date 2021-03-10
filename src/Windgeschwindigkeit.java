@@ -38,11 +38,8 @@ public class Windgeschwindigkeit extends WindDaten {
     }
 
     private double readSpeed() {
-
-        while (true) {
-            String d = scanner.nextLine();
-            return Double.parseDouble(d);
-        }
+        String d = scanner.nextLine();
+        return Double.parseDouble(d);
     }
 
     // Getter

@@ -1,11 +1,8 @@
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public abstract class WindDaten {
 
@@ -27,6 +24,7 @@ public abstract class WindDaten {
     }
 
     public ArrayList<Windgeschwindigkeit> getWindSpeedValuesList() {
+
         return windSpeedValuesList;
     }
 
@@ -37,6 +35,7 @@ public abstract class WindDaten {
     }
 
     public void dummyDaten() {
+
         createDummyDaten();
     }
 
