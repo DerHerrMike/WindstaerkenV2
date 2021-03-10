@@ -5,13 +5,7 @@ import java.util.Scanner;
 
 public class Windgeschwindigkeit extends WindDaten {
 
-    private double stundenKilometer = 0.02f;
-    private double knoten;
-    private int beaufort;
-
-    private boolean orkan;
-    private boolean windstill;
-    private static final Scanner scanner = new Scanner(System.in);
+    private final double stundenKilometer;
 
 
     // Konstruktor
@@ -20,27 +14,6 @@ public class Windgeschwindigkeit extends WindDaten {
         this.stundenKilometer = stundenKilometer;
     }
 
-    public static void main(String[] args) {
-        List<Windgeschwindigkeit> windSpeedList = new ArrayList<>();
-        LocalDateTime localDateTime = LocalDateTime.now();
-        System.out.println("Wie viele Geschwindigkeiten wollen Sie erfassen: ");
-        int anzahl = scanner.nextInt();
-        scanner.nextLine(); //muss IMMEr nach einem nextInt() etc gemacht werden. sonst kann es zu komische nebenwirkungen kommen.
-        for (int i = 0; i < anzahl; i++) {
-            System.out.println("Bitte die Windgeschwindigkeit eingeben: ");
-            double speed = scanner.nextDouble();
-            scanner.nextLine();
-            windSpeedList.add(new Windgeschwindigkeit(i, localDateTime, speed));
-        }
-        for (int j = 0; j < anzahl; j++) {
-            System.out.println(windSpeedList.get(j));
-        }
-    }
-
-    private double readSpeed() {
-        String d = scanner.nextLine();
-        return Double.parseDouble(d);
-    }
 
     // Getter
     public double getStundenKilometer() {
@@ -53,7 +26,7 @@ public class Windgeschwindigkeit extends WindDaten {
     }
 
     public int getBeaufort() {
-        beaufort = (int) (Math.pow(getStundenKilometer() / 3.01, 0.6666) + 0.5);
+        int beaufort = (int) (Math.pow(getStundenKilometer() / 3.01, 0.6666) + 0.5);
         if (beaufort > 12) {
             beaufort = 12;
         }
