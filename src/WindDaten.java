@@ -10,7 +10,7 @@ import java.util.Date;
 public abstract class WindDaten {
 
     protected LocalDateTime localDateTime = LocalDateTime.now();
-    protected ArrayList<Windgeschwindigkeit> windSpeedValuesList = new ArrayList<>();
+    public ArrayList<Windgeschwindigkeit> windSpeedValuesList = new ArrayList<>();
 
 
     // Konstruktor
