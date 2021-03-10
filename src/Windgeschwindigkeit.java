@@ -22,9 +22,7 @@ public class Windgeschwindigkeit extends WindDaten {
     }
 
     public static void main(String[] args) {
-
-
-        List windSpeedList = new ArrayList();
+        List<Windgeschwindigkeit> windSpeedList = new ArrayList<>();
         Scanner scanner1 = new Scanner(System.in);
         LocalDateTime localDateTime = LocalDateTime.now();
         System.out.println("Wie viele Geschwindigkeiten wollen Sie erfassen: ");
