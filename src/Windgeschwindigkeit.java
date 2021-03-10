@@ -12,7 +12,7 @@ public class Windgeschwindigkeit extends WindDaten {
 
     private boolean orkan;
     private boolean windstill;
-    private Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
 
     // Konstruktor
@@ -23,13 +23,12 @@ public class Windgeschwindigkeit extends WindDaten {
 
     public static void main(String[] args) {
         List<Windgeschwindigkeit> windSpeedList = new ArrayList<>();
-        Scanner scanner1 = new Scanner(System.in);
         LocalDateTime localDateTime = LocalDateTime.now();
         System.out.println("Wie viele Geschwindigkeiten wollen Sie erfassen: ");
-        int anzahl = scanner1.nextInt();
+        int anzahl = scanner.nextInt();
         for (int i = 0; i < anzahl; i++) {
             System.out.println("Bitte die Windgeschwindigkeit eingeben: ");
-            double speed = scanner1.nextDouble();
+            double speed = scanner.nextDouble();
             windSpeedList.add(new Windgeschwindigkeit(i, localDateTime, speed));
         }
         for (int j = 0; j < anzahl; j++) {
