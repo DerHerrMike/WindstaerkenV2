@@ -17,8 +17,6 @@ public class WindgeschwindigkeitDriver {
 
     public static void main(String[] args) throws IOException {
 
-        //  WindgeschwindigkeitDriver wgd = new WindgeschwindigkeitDriver();
-
         List<Windgeschwindigkeit> windSpeedList = new ArrayList<>();
         LocalDateTime localDateTime = LocalDateTime.now();
         Path path = Paths.get("output\\windspeedObjekte.txt");
@@ -41,25 +39,6 @@ public class WindgeschwindigkeitDriver {
             Windgeschwindigkeit windgeschwindigkeit = new Windgeschwindigkeit(id, localDateTime, stundenKilometer);
             windSpeedList.add(windgeschwindigkeit);
             windgeschwindigkeit.writeToFile(path);
-        }
-
-        Path file = Paths.get("output\\windspeedObjekte.txt");
-
-        for (Windgeschwindigkeit w : windSpeedList) {
-        }
-    }
-
-
-    public void serializeWindgeschwindigkeiten(Windgeschwindigkeit windspeedList) {
-
-        try (ObjectOutputStream oos =
-                     new ObjectOutputStream(new FileOutputStream("output\\windspeeds1.txt"))) {
-
-            oos.writeObject(windspeedList);
-            System.out.println("Done");
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
 
     }
