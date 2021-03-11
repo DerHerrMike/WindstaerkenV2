@@ -1,13 +1,9 @@
 
 import java.io.IOException;
-
-import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,40 +19,13 @@ public class Windgeschwindigkeit extends WindDaten {
         this.id = id;
     }
 
-
-    // Getter
-    public double getStundenKilometer() {
-        return stundenKilometer;
-    }
-
-    public double getKnoten() {
-
-        return (double) Math.round((((stundenKilometer / 1.852)) * 100.00) / 100);
-    }
-
-    public int getBeaufort() {
-        int beaufort = (int) (Math.pow(getStundenKilometer() / 3.01, 0.6666) + 0.5);
-        if (beaufort > 12) {
-            beaufort = 12;
-        }
-        return beaufort;
-    }
-
-    public boolean isOrkan() {
-        return getStundenKilometer() >= 120.0;
-    }
-
-    public boolean isWindstill() {
-        return getStundenKilometer() < 2.0;
-    }
-
     private String convert() {
         String convertedString =
                 id +
-                        ";" +
+                        ";" +" Messzeitpunkt: "+
                         this.getZeitpunkt() +
-                        ";" +
-                        this.stundenKilometer +
+                        ";" +" Geschwindigkeit: "+
+                        this.stundenKilometer + " km/h"+
                         "\n";
         return convertedString;
     }
@@ -92,6 +61,31 @@ public class Windgeschwindigkeit extends WindDaten {
 
     }
 
+    // Getter
+    public double getStundenKilometer() {
+        return stundenKilometer;
+    }
+
+    public double getKnoten() {
+
+        return (double) Math.round((((stundenKilometer / 1.852)) * 100.00) / 100);
+    }
+
+    public int getBeaufort() {
+        int beaufort = (int) (Math.pow(getStundenKilometer() / 3.01, 0.6666) + 0.5);
+        if (beaufort > 12) {
+            beaufort = 12;
+        }
+        return beaufort;
+    }
+
+    public boolean isOrkan() {
+        return getStundenKilometer() >= 120.0;
+    }
+
+    public boolean isWindstill() {
+        return getStundenKilometer() < 2.0;
+    }
 
     // ToString
     @Override
@@ -101,6 +95,5 @@ public class Windgeschwindigkeit extends WindDaten {
                 + getBeaufort() + " auf der Beaufort Skala. Somit ergibt sich für 'ist windstill' = "
                 + isWindstill() + ", und für 'ist ein Orkan' = " + isOrkan() + "  <<";
     }
-
 
 }

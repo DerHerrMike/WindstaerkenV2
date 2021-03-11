@@ -19,7 +19,7 @@ public class WindgeschwindigkeitDriver {
 
         List<Windgeschwindigkeit> windSpeedList = new ArrayList<>();
         LocalDateTime localDateTime = LocalDateTime.now();
-        Path path = Paths.get("output\\windspeedObjekte.txt");
+        Path path = Paths.get("output\\windspeedObjekte1.txt");
         if (Files.notExists(path)) {
 
             var p = Files.createFile(path);
@@ -41,11 +41,11 @@ public class WindgeschwindigkeitDriver {
             windgeschwindigkeit.writeToFile(path);
             System.out.println();
         }
-        System.out.println("Datensätze in Datei windspeedObjekte.txt geschrieben!");
+
+        System.out.println("Datensätze in Datei windspeedObjekte1.txt geschrieben!");
         System.out.println();
         for (int j = 0; j < anzahl; j++) {
 
-            String werteDieserEingabe = windSpeedList.get(j).toString();
             System.out.println(windSpeedList.get(j));
             System.out.println();
         }
