@@ -1,22 +1,20 @@
-import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 import java.io.Serializable;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
+
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
-public class Windgeschwindigkeit extends WindDaten implements Serializable {
+
+public class Windgeschwindigkeit extends WindDaten {
 
     private final int id;
-    String uuid = UUID.randomUUID().toString();
     private final double stundenKilometer;
-
 
     // Konstruktor
     public Windgeschwindigkeit(int id, LocalDateTime localDateTime, double stundenKilometer) {
@@ -55,11 +53,11 @@ public class Windgeschwindigkeit extends WindDaten implements Serializable {
     private String convert() {
         String convertedString =
                 id +
-                ";" +
-                this.getZeitpunkt() +
-                ";" +
-                this.stundenKilometer+
-                "\n";
+                        ";" +
+                        this.getZeitpunkt() +
+                        ";" +
+                        this.stundenKilometer +
+                        "\n";
         return convertedString;
     }
 
@@ -79,34 +77,21 @@ public class Windgeschwindigkeit extends WindDaten implements Serializable {
 
 
     public static int getLastId(Path path) throws IOException {
-        List<String> lines = Files.readAllLines(path);
-        //get last entry
-        String line = lines.get(lines.size() - 1);
-        //6;11.03.2021 10:59:46;4.44
-        String[] lastEntry = line.split(";");
-        //cconvert to int
-        String idFromFile = lastEntry[0];
-        return Integer.parseInt(idFromFile);
-    }
 
-    public List<Windgeschwindigkeit> readAllLines(Path path) {
-        List<Windgeschwindigkeit> allLines = new ArrayList<>();
-
-        //lies alle zeilen aus dem file
-        //für alle zeilen:
-        //lies alle einzelnen wert aus der zeile
-        //speichere die werte aus der Zeile in ein objekt
-        //speichere das Objekt in der Liste
-        //end for
-
-        for(Windgeschwindigkeit w: allLines) {
-            //lies die werte aus der zeile
-            //Windgeschwindigkeit object = new Windgeschwindigkeit(...);
-            //allLines.add(object);
+        if (Files.size(path) < 1) {
+            return 0;
+        } else {
+            List<String> lines = Files.readAllLines(path);
+            //letzten Eintrag holen
+            String line = lines.get(lines.size() - 1);
+            //Elemente der Zeile in ein String Array
+            String[] lastEntry = line.split(";");
+            //in int parsen
+            return Integer.parseInt(lastEntry[0]);
         }
 
-        return allLines;
     }
+
 
     // ToString
     @Override
@@ -119,4 +104,3 @@ public class Windgeschwindigkeit extends WindDaten implements Serializable {
 
 
 }
-
