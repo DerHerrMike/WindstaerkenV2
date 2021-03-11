@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -86,6 +87,25 @@ public class Windgeschwindigkeit extends WindDaten implements Serializable {
         //cconvert to int
         String idFromFile = lastEntry[0];
         return Integer.parseInt(idFromFile);
+    }
+
+    public List<Windgeschwindigkeit> readAllLines(Path path) {
+        List<Windgeschwindigkeit> allLines = new ArrayList<>();
+
+        //lies alle zeilen aus dem file
+        //für alle zeilen:
+        //lies alle einzelnen wert aus der zeile
+        //speichere die werte aus der Zeile in ein objekt
+        //speichere das Objekt in der Liste
+        //end for
+
+        for(Windgeschwindigkeit w: allLines) {
+            //lies die werte aus der zeile
+            //Windgeschwindigkeit object = new Windgeschwindigkeit(...);
+            //allLines.add(object);
+        }
+
+        return allLines;
     }
 
     // ToString
