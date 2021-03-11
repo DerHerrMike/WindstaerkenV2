@@ -23,6 +23,8 @@ public abstract class WindDaten {
         this.windSpeedValuesList.add(windgeschwindigkeit);
     }
 
+
+
     public ArrayList<Windgeschwindigkeit> getWindSpeedValuesList() {
 
         return windSpeedValuesList;
