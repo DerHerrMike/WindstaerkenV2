@@ -17,30 +17,35 @@ public class WindgeschwindigkeitDriver {
 
     public static void main(String[] args) throws IOException {
 
-        WindgeschwindigkeitDriver wgd = new WindgeschwindigkeitDriver();
+        //  WindgeschwindigkeitDriver wgd = new WindgeschwindigkeitDriver();
 
         List<Windgeschwindigkeit> windSpeedList = new ArrayList<>();
         LocalDateTime localDateTime = LocalDateTime.now();
-        Path path = Paths.get("output");
+        Path path = Paths.get("output\\windspeedObjekte.txt");
         if (Files.notExists(path)) {
-            var p = Files.createDirectories(path);
+            var p = Files.createFile(path);
         }
+
+        int id = Windgeschwindigkeit.getLastId(path);
 
         System.out.println("Wie viele Geschwindigkeiten wollen Sie erfassen: ");
         int anzahl = scanner.nextInt();
-        scanner.nextLine(); //muss IMMEr nach einem nextInt() etc gemacht werden. sonst kann es zu komische nebenwirkungen kommen.
+        scanner.nextLine(); //muss IMMER nach einem nextInt() etc gemacht werden. sonst kann es zu komische nebenwirkungen kommen.
 
         for (int i = 0; i < anzahl; i++) {
             System.out.println("Bitte die Windgeschwindigkeit eingeben: ");
-            double speed = scanner.nextDouble();
-            scanner.nextLine();
-            windSpeedList.add(new Windgeschwindigkeit(i, localDateTime, speed));
+            //double speed = scanner.nextDouble();
+            String speedInput = scanner.nextLine();
+            double stundenKilometer = Double.parseDouble(speedInput);
+            id++;
+            Windgeschwindigkeit windgeschwindigkeit = new Windgeschwindigkeit(id, localDateTime, stundenKilometer);
+            windSpeedList.add(windgeschwindigkeit);
+            windgeschwindigkeit.writeToFile(path);
         }
-        for (int j = 0; j < anzahl; j++) {
 
-            String datei = windSpeedList.get(j).toString();
-            System.out.println(windSpeedList.get(j));
-            wgd.serializeWindgeschwindigkeiten(windSpeedList.get(j));
+        Path file = Paths.get("output\\windspeedObjekte.txt");
+
+        for (Windgeschwindigkeit w : windSpeedList) {
         }
     }
 
@@ -59,9 +64,5 @@ public class WindgeschwindigkeitDriver {
 
     }
 
-    private double readSpeed() {
-        String d = scanner.nextLine();
-        return Double.parseDouble(d);
-    }
 
 }
