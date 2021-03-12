@@ -75,16 +75,20 @@ public class WindgeschwindigkeitDriver {
                     String line = reader.readLine();
                     while (line != null) {
                         String[] ausgeleseneZeile = line.split(";");
+                        //ID
                         int idf = Integer.parseInt(ausgeleseneZeile[0]);
-
+                        //TIMESTAMP
                         Pattern p = Pattern.compile("[\\d]*[^\\d]+([\\d]+)");
-//                        "[\\d]*[^\\d]+[\\d]*[^\\d]+([\\d]+)"
-                        Matcher m = p.matcher(line);
+//                        Matcher m = p.matcher(line);
                         String ldtf = String.valueOf(p.matcher(line));
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
                         LocalDateTime dateTime = LocalDateTime.parse(ldtf, formatter);
+                        //SPEED
+                        Pattern p1 = Pattern.compile("[\\d]*[^\\d]+[\\d]*[^\\d]+([\\d]+)");
+//                        Matcher m1 = p1.matcher(line);
+                        double speedf = Double.parseDouble(String.valueOf(p1.matcher(line)));
 
-                        Windgeschwindigkeit object = new Windgeschwindigkeit();
+                        Windgeschwindigkeit object = new Windgeschwindigkeit(idf,dateTime,speedf);
 
 
                         System.out.println(line);
