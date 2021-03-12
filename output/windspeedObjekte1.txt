@@ -1,0 +1,6 @@
+1; Messzeitpunkt: 11.03.2021 16:07:23; Geschwindigkeit: 12.67 km/h
+2; Messzeitpunkt: 11.03.2021 16:07:23; Geschwindigkeit: 20.5 km/h
+3; Messzeitpunkt: 11.03.2021 16:07:23; Geschwindigkeit: 60.8 km/h
+4; Messzeitpunkt: 12.03.2021 07:31:30; Geschwindigkeit: 15.5 km/h
+5; Messzeitpunkt: 12.03.2021 07:31:30; Geschwindigkeit: 120.3 km/h
+6; Messzeitpunkt: 12.03.2021 07:34:20; Geschwindigkeit: 67.854 km/h
