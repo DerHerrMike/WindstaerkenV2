@@ -2,7 +2,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,15 +22,14 @@ public class WindgeschwindigkeitDriver {
         LocalDateTime localDateTime = LocalDateTime.now();
         Path path = Paths.get("output\\windspeedObjekte1.txt");
         if (Files.notExists(path)) {
-
-            var p = Files.createFile(path);
+            Files.createFile(path);
         }
         auswahlUser();
         if (!auswahlUser()) {
             auslesen();
             System.exit(0);
         }
-        System.out.println("------------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------------------------------------------------------");
         System.out.println();
         System.out.println("Wie viele Geschwindigkeiten wollen Sie erfassen: ");
         int anzahl = scanner.nextInt();
@@ -48,15 +46,10 @@ public class WindgeschwindigkeitDriver {
             windgeschwindigkeit.writeToFile(path);
             System.out.println();
         }
-        System.out.println("Datensätze in Datei windspeedObjekte1.txt geschrieben!");
-        System.out.println("------------------------------------------------------");
-        System.out.println();
-        System.out.println("Abfrage und Ausgabe für aktuelle Werte:");
-        System.out.println();
 
-        // aktuelle Datensätze aus Liste holen
+       prints();
+        // aktuell erfasste Datensätze aus Liste holen
         for (int j = 0; j < anzahl; j++) {
-
             System.out.println(windSpeedList.get(j));
             System.out.println();
         }
@@ -89,6 +82,14 @@ public class WindgeschwindigkeitDriver {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void prints (){
+        System.out.println("Datensätze in Datei windspeedObjekte1.txt geschrieben!");
+        System.out.println("------------------------------------------------------");
+        System.out.println();
+        System.out.println("Abfrage und Ausgabe für aktuelle Werte:");
+        System.out.println();
     }
 }
 
