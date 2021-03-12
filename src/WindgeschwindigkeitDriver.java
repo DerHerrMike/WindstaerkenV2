@@ -27,9 +27,12 @@ public class WindgeschwindigkeitDriver {
         if (Files.notExists(path)) {
             Files.createFile(path);
         }
+
         auswahlUser();
         if (!auswahlUser()) {
+            readAllLines(path);
             auslesen();
+
             System.exit(0);
         }
         System.out.println("-----------------------------------------------------------------------------------------------------------");
@@ -61,6 +64,7 @@ public class WindgeschwindigkeitDriver {
 
     public static List<Windgeschwindigkeit> readAllLines(Path path) throws IOException {
 
+        System.out.println("Werte der Datei wurden in ArrayList 'allLines' geschrieben");
         BufferedReader reader;
         List<Windgeschwindigkeit> allLines = new ArrayList<>();
 
@@ -88,8 +92,8 @@ public class WindgeschwindigkeitDriver {
 //                        Matcher m1 = p1.matcher(line);
                         double speedf = Double.parseDouble(String.valueOf(p1.matcher(line)));
 
-                        Windgeschwindigkeit object = new Windgeschwindigkeit(idf,dateTime,speedf);
-
+                        Windgeschwindigkeit object = new Windgeschwindigkeit(idf, dateTime, speedf);
+                        allLines.add(object);
 
                         System.out.println(line);
                         // read next line
@@ -99,33 +103,10 @@ public class WindgeschwindigkeitDriver {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            } return allLines;
+            }
+            return allLines;
         }
     }
-
-//    private static void testauslesen() {
-//        System.out.println();
-//        System.out.println("Auslesen der bestehenden Datei:");
-//        System.out.println();
-//        BufferedReader reader;
-//
-//
-//
-//
-//        try {
-//            reader = new BufferedReader(new FileReader("output\\windspeedObjekte1.txt"));
-//            String line = reader.readLine();
-//            while (line != null) {
-//                System.out.println(line);
-//                // read next line
-//                line = reader.readLine();
-//            }
-//            reader.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return List.copyOf(windSpeedList);
-//    }
 
 
     public static void auslesen() {
