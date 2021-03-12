@@ -26,7 +26,52 @@ public class WindgeschwindigkeitDriver {
 
             var p = Files.createFile(path);
         }
+        auswahlUser();
+        if (!auswahlUser()) {
+            auslesen();
+            System.exit(0);
+        }
+        System.out.println("------------------------------------------------------------------");
+        System.out.println();
+        System.out.println("Wie viele Geschwindigkeiten wollen Sie erfassen: ");
+        int anzahl = scanner.nextInt();
+        scanner.nextLine();
+        int id = Windgeschwindigkeit.getLastId(path);
+        for (int i = 0; i < anzahl; i++) {
 
+            System.out.println("Bitte die " + (i + 1) + ". Windgeschwindigkeit eingeben: ");
+            String speedInput = scanner.nextLine();
+            double stundenKilometer = Double.parseDouble(speedInput);
+            id++;
+            Windgeschwindigkeit windgeschwindigkeit = new Windgeschwindigkeit(id, localDateTime, stundenKilometer);
+            windSpeedList.add(windgeschwindigkeit);
+            windgeschwindigkeit.writeToFile(path);
+            System.out.println();
+        }
+        System.out.println("Datensätze in Datei windspeedObjekte1.txt geschrieben!");
+        System.out.println("------------------------------------------------------");
+        System.out.println();
+        System.out.println("Abfrage und Ausgabe für aktuelle Werte:");
+        System.out.println();
+
+        // aktuelle Datensätze aus Liste holen
+        for (int j = 0; j < anzahl; j++) {
+
+            System.out.println(windSpeedList.get(j));
+            System.out.println();
+        }
+    }
+
+    public static boolean auswahlUser() {        //BUG doppelte Abfrage ??
+
+        System.out.println("Was möchtest du tun? Wähle 1 für das Auslesen der Werte aus der Datei oder 2 um neue Messwerte hinzuzufügen: ");
+        int auswahl = scanner.nextInt();
+        scanner.nextLine();
+        return auswahl != 1;
+    }
+
+    public static void auslesen() {
+        System.out.println();
         System.out.println("Auslesen der bestehenden Datei:");
         System.out.println();
         BufferedReader reader;
@@ -44,31 +89,7 @@ public class WindgeschwindigkeitDriver {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        System.out.println("------------------------------------------------------------------");
-        System.out.println();
-        System.out.println("Wie viele Geschwindigkeiten wollen Sie erfassen: ");
-        int anzahl = scanner.nextInt();
-        scanner.nextLine();
-        int id = Windgeschwindigkeit.getLastId(path);
-        for (int i = 0; i < anzahl; i++) {
-
-            System.out.println("Bitte die Windgeschwindigkeit eingeben: ");
-            String speedInput = scanner.nextLine();
-            double stundenKilometer = Double.parseDouble(speedInput);
-            id++;
-            Windgeschwindigkeit windgeschwindigkeit = new Windgeschwindigkeit(id, localDateTime, stundenKilometer);
-            windSpeedList.add(windgeschwindigkeit);
-            windgeschwindigkeit.writeToFile(path);
-            System.out.println();
-        }
-
-        System.out.println("Datensätze in Datei windspeedObjekte1.txt geschrieben!");
-        System.out.println();
-        for (int j = 0; j < anzahl; j++) {
-
-            System.out.println(windSpeedList.get(j));
-            System.out.println();
-        }
     }
 }
+
+
