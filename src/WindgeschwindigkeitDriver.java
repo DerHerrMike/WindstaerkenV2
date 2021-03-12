@@ -6,9 +6,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class WindgeschwindigkeitDriver {
@@ -47,7 +50,7 @@ public class WindgeschwindigkeitDriver {
             System.out.println();
         }
 
-       prints();
+        prints();
         // aktuell erfasste Datensätze aus Liste holen
         for (int j = 0; j < anzahl; j++) {
             System.out.println(windSpeedList.get(j));
@@ -55,13 +58,71 @@ public class WindgeschwindigkeitDriver {
         }
     }
 
-    public static boolean auswahlUser() {        //BUG doppelte Abfrage ??
 
-        System.out.println("Was möchtest du tun? Wähle 1 für das Auslesen der Werte aus der Datei oder 2 um neue Messwerte hinzuzufügen: ");
-        int auswahl = scanner.nextInt();
-        scanner.nextLine();
-        return auswahl != 1;
+    public static List<Windgeschwindigkeit> readAllLines(Path path) throws IOException {
+
+        BufferedReader reader;
+        List<Windgeschwindigkeit> allLines = new ArrayList<>();
+
+        if (Files.size(path) < 1) {
+            return null;
+        } else {
+
+            for (Windgeschwindigkeit w : allLines) {
+
+                try {
+                    reader = new BufferedReader(new FileReader("output\\windspeedObjekte1.txt"));
+                    String line = reader.readLine();
+                    while (line != null) {
+                        String[] ausgeleseneZeile = line.split(";");
+                        int idf = Integer.parseInt(ausgeleseneZeile[0]);
+
+                        Pattern p = Pattern.compile("[\\d]*[^\\d]+([\\d]+)");
+//                        "[\\d]*[^\\d]+[\\d]*[^\\d]+([\\d]+)"
+                        Matcher m = p.matcher(line);
+                        String ldtf = String.valueOf(p.matcher(line));
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+                        LocalDateTime dateTime = LocalDateTime.parse(ldtf, formatter);
+
+                        Windgeschwindigkeit object = new Windgeschwindigkeit();
+
+
+                        System.out.println(line);
+                        // read next line
+                        line = reader.readLine();
+                    }
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } return allLines;
+        }
     }
+
+//    private static void testauslesen() {
+//        System.out.println();
+//        System.out.println("Auslesen der bestehenden Datei:");
+//        System.out.println();
+//        BufferedReader reader;
+//
+//
+//
+//
+//        try {
+//            reader = new BufferedReader(new FileReader("output\\windspeedObjekte1.txt"));
+//            String line = reader.readLine();
+//            while (line != null) {
+//                System.out.println(line);
+//                // read next line
+//                line = reader.readLine();
+//            }
+//            reader.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return List.copyOf(windSpeedList);
+//    }
+
 
     public static void auslesen() {
         System.out.println();
@@ -84,7 +145,15 @@ public class WindgeschwindigkeitDriver {
         }
     }
 
-    public static void prints (){
+    public static boolean auswahlUser() {        //BUG doppelte Abfrage ??
+
+        System.out.println("Was möchtest du tun? Wähle 1 für das Auslesen der Werte aus der Datei oder 2 um neue Messwerte hinzuzufügen: ");
+        int auswahl = scanner.nextInt();
+        scanner.nextLine();
+        return auswahl != 1;
+    }
+
+    public static void prints() {
         System.out.println("Datensätze in Datei windspeedObjekte1.txt geschrieben!");
         System.out.println("------------------------------------------------------");
         System.out.println();
