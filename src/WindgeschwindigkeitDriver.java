@@ -1,4 +1,6 @@
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 
 import java.nio.file.Files;
@@ -25,7 +27,26 @@ public class WindgeschwindigkeitDriver {
             var p = Files.createFile(path);
         }
 
+        System.out.println("Auslesen der bestehenden Datei:");
+        System.out.println();
+        BufferedReader reader;
 
+        try {
+            reader = new BufferedReader(new FileReader("output\\windspeedObjekte1.txt"));
+            String line = reader.readLine();
+            while (line != null) {
+
+                System.out.println(line);
+                // read next line
+                line = reader.readLine();
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("------------------------------------------------------------------");
+        System.out.println();
         System.out.println("Wie viele Geschwindigkeiten wollen Sie erfassen: ");
         int anzahl = scanner.nextInt();
         scanner.nextLine();
