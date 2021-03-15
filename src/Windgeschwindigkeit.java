@@ -85,13 +85,21 @@ public class Windgeschwindigkeit extends WindDaten {
         return getStundenKilometer() < 2.0;
     }
 
-    // ToString
+    // ToString     add linebreak
+
     @Override
     public String toString() {
-        return ">>  Zeitpunkt der Messung: " + getZeitpunkt() + ". Geschwindigkeit in verschiedenen Einheiten = "
-                + getStundenKilometer() + " km/h || " + getKnoten() + " Knoten. Das bedeutet Wert "
-                + getBeaufort() + " auf der Beaufort Skala. Somit ergibt sich für 'ist windstill' = "
-                + isWindstill() + ", und für 'ist ein Orkan' = " + isOrkan() + "  <<";
+
+        String sb = "Zeitpunkt der Messung: " + getZeitpunkt() + System.getProperty("line.separator") +
+                getStundenKilometer() + " km/h || " + getKnoten() + " Knoten. " +
+                "Das bedeutet Wert " + getBeaufort() + " auf der Beaufort Skala. Dies ergibt für 'ist windstill' = "
+                + isWindstill() + ", & für 'ist ein Orkan' = " + isOrkan() +
+                System.getProperty("line.separator");
+        return sb;
+//                ""+leer()+">> Zeitpunkt der Messung: " + getZeitpunkt() + ". Geschwindigkeit in verschiedenen Einheiten = "
+//                + getStundenKilometer() + " km/h || " + getKnoten() + " Knoten. Das bedeutet Wert "
+//                + getBeaufort() + " auf der Beaufort Skala. Somit ergibt sich für 'ist windstill' = "
+//                + isWindstill() + ", und für 'ist ein Orkan' = " + isOrkan() + "  <<";
     }
 
 }

@@ -8,11 +8,10 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 
 public class WindgeschwindigkeitDriver {
@@ -84,10 +83,9 @@ public class WindgeschwindigkeitDriver {
                     double speedf = Double.parseDouble(ausgeleseneZeile[2]);
                     Windgeschwindigkeit object = new Windgeschwindigkeit(idf, dateTime, speedf);
                     allLines.add(object);
-                    System.out.println(line);
+//                    System.out.println(line);     // Gibt Daten in Rohfassung aus
                     line = reader.readLine();
                 }
-                System.out.println("Werte der Datei wurden in ArrayList 'allLines' geschrieben");
                 reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
