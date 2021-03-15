@@ -24,7 +24,7 @@ public class WindgeschwindigkeitDriver {
 
         List<Windgeschwindigkeit> windSpeedList = new ArrayList<>();
         LocalDateTime localDateTime = LocalDateTime.now();
-        Path path = Paths.get("output\\windspeedObjekte3.txt");
+        Path path = Paths.get("output\\windspeedObjekte5.txt");
         if (Files.notExists(path)) {
             Files.createFile(path);
         }
@@ -43,7 +43,7 @@ public class WindgeschwindigkeitDriver {
         for (int i = 0; i < anzahl; i++) {
 
             System.out.println("Bitte die " + (i + 1) + ". Windgeschwindigkeit eingeben: ");
-            String speedInput = scanner.nextLine();
+            String speedInput = scanner.nextLine();             // unsauber noch
             double stundenKilometer = Double.parseDouble(speedInput);
             id++;
             Windgeschwindigkeit windgeschwindigkeit = new Windgeschwindigkeit(id, localDateTime, stundenKilometer);
@@ -77,18 +77,14 @@ public class WindgeschwindigkeitDriver {
                     //ID
                     int idf = Integer.parseInt(ausgeleseneZeile[0]);
                     //TIMESTAMP
-//                    Pattern p = Pattern.compile("[\\d]*[^\\d]+([\\d]+)");
                     String ldtf = ausgeleseneZeile[1];
-//                    String.valueOf(p.matcher(line));
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
                     LocalDateTime dateTime = LocalDateTime.parse(ldtf, formatter);
                     //SPEED
-//                  Pattern p1 = Pattern.compile("[\\d]*[^\\d]+[\\d]*[^\\d]+([\\d]+)");
                     double speedf = Double.parseDouble(ausgeleseneZeile[2]);
                     Windgeschwindigkeit object = new Windgeschwindigkeit(idf, dateTime, speedf);
                     allLines.add(object);
                     System.out.println(line);
-                    // read next line
                     line = reader.readLine();
                 }
                 System.out.println("Werte der Datei wurden in ArrayList 'allLines' geschrieben");
@@ -102,6 +98,7 @@ public class WindgeschwindigkeitDriver {
 
     public static int auswahlUser() {
 
+        System.out.println();
         System.out.println("Was möchtest du tun? Wähle 1 für das Auslesen der Werte aus der Datei oder 2 um neue Messwerte hinzuzufügen: ");
         int auswahl = scanner.nextInt();
         scanner.nextLine();

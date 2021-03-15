@@ -21,10 +21,10 @@ public class Windgeschwindigkeit extends WindDaten {
 
     private String convert() {
         return id +
-                ";" +" Messzeitpunkt: "+
+                ";" +
                 this.getZeitpunkt() +
-                ";" +" Geschwindigkeit: "+
-                this.stundenKilometer + " km/h"+
+                ";" +
+                this.stundenKilometer +
                 "\n";
     }
 
