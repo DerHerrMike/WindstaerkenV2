@@ -29,8 +29,11 @@ public class WindgeschwindigkeitDriver {
         }
         if (auswahlUser() == 1) {
             windSpeedList.addAll(readAllLines(path));
-            System.out.println(windSpeedList.toString());
-
+            System.out.println();
+            for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList) {
+                System.out.println(windgeschwindigkeit.toString());
+            }
+            System.out.println("Keine weiteren Datensätze gespeichert.");
             System.exit(0);
         }
         System.out.println("-----------------------------------------------------------------------------------------------------------");
