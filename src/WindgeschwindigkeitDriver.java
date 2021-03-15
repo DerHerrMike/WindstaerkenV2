@@ -24,13 +24,13 @@ public class WindgeschwindigkeitDriver {
 
         List<Windgeschwindigkeit> windSpeedList = new ArrayList<>();
         LocalDateTime localDateTime = LocalDateTime.now();
-        Path path = Paths.get("output\\windspeedObjekte1.txt");
+        Path path = Paths.get("output\\windspeedObjekte3.txt");
         if (Files.notExists(path)) {
             Files.createFile(path);
         }
         if (auswahlUser() == 1) {
             windSpeedList.addAll(readAllLines(path));
-
+            System.out.println(windSpeedList.toString());
 
             System.exit(0);
         }
@@ -51,7 +51,6 @@ public class WindgeschwindigkeitDriver {
             windgeschwindigkeit.writeToFile(path);
             System.out.println();
         }
-
         prints();
         // aktuell erfasste Datensätze aus Liste holen
         for (int j = 0; j < anzahl; j++) {
@@ -69,10 +68,9 @@ public class WindgeschwindigkeitDriver {
             System.out.println("return null");
             return null;
         } else {
-            System.out.println("L76");
 
             try {
-                reader = new BufferedReader(new FileReader("output\\windspeedObjekte1.txt"));
+                reader = new BufferedReader(new FileReader(String.valueOf(path)));
                 String line = reader.readLine();
                 while (line != null) {
                     String[] ausgeleseneZeile = line.split(";");
@@ -100,30 +98,9 @@ public class WindgeschwindigkeitDriver {
             }
         }
         return allLines;
-
     }
 
-//    public static void auslesen() {
-//        System.out.println();
-//        System.out.println("Auslesen der bestehenden Datei:");
-//        System.out.println();
-//        BufferedReader reader;
-//
-//        try {
-//            reader = new BufferedReader(new FileReader("output\\windspeedObjekte1.txt"));
-//            String line = reader.readLine();
-//            while (line != null) {
-//                System.out.println(line);
-//                // read next line
-//                line = reader.readLine();
-//            }
-//            reader.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    public static int auswahlUser() {        //BUG doppelte Abfrage ??
+    public static int auswahlUser() {
 
         System.out.println("Was möchtest du tun? Wähle 1 für das Auslesen der Werte aus der Datei oder 2 um neue Messwerte hinzuzufügen: ");
         int auswahl = scanner.nextInt();
@@ -132,7 +109,7 @@ public class WindgeschwindigkeitDriver {
     }
 
     public static void prints() {
-        System.out.println("Datensätze in Datei windspeedObjekte1.txt geschrieben!");
+        System.out.println("Datensätze in Datei geschrieben!");
         System.out.println("------------------------------------------------------");
         System.out.println();
         System.out.println("Abfrage und Ausgabe für aktuelle Werte:");
