@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -27,11 +28,9 @@ public class WindgeschwindigkeitDriver {
         if (Files.notExists(path)) {
             Files.createFile(path);
         }
+        if (auswahlUser() == 1) {
+            windSpeedList.addAll(readAllLines(path));
 
-        auswahlUser();
-        if (!auswahlUser()) {
-            readAllLines(path);
-            auslesen();
 
             System.exit(0);
         }
@@ -61,81 +60,75 @@ public class WindgeschwindigkeitDriver {
         }
     }
 
-
     public static List<Windgeschwindigkeit> readAllLines(Path path) throws IOException {
 
-        System.out.println("Werte der Datei wurden in ArrayList 'allLines' geschrieben");
         BufferedReader reader;
         List<Windgeschwindigkeit> allLines = new ArrayList<>();
 
         if (Files.size(path) < 1) {
+            System.out.println("return null");
             return null;
         } else {
+            System.out.println("L76");
 
-            for (Windgeschwindigkeit w : allLines) {
-
-                try {
-                    reader = new BufferedReader(new FileReader("output\\windspeedObjekte1.txt"));
-                    String line = reader.readLine();
-                    while (line != null) {
-                        String[] ausgeleseneZeile = line.split(";");
-                        //ID
-                        int idf = Integer.parseInt(ausgeleseneZeile[0]);
-                        //TIMESTAMP
-                        Pattern p = Pattern.compile("[\\d]*[^\\d]+([\\d]+)");
-//                        Matcher m = p.matcher(line);
-                        String ldtf = String.valueOf(p.matcher(line));
-                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
-                        LocalDateTime dateTime = LocalDateTime.parse(ldtf, formatter);
-                        //SPEED
-                        Pattern p1 = Pattern.compile("[\\d]*[^\\d]+[\\d]*[^\\d]+([\\d]+)");
-//                        Matcher m1 = p1.matcher(line);
-                        double speedf = Double.parseDouble(String.valueOf(p1.matcher(line)));
-
-                        Windgeschwindigkeit object = new Windgeschwindigkeit(idf, dateTime, speedf);
-                        allLines.add(object);
-
-                        System.out.println(line);
-                        // read next line
-                        line = reader.readLine();
-                    }
-                    reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+            try {
+                reader = new BufferedReader(new FileReader("output\\windspeedObjekte1.txt"));
+                String line = reader.readLine();
+                while (line != null) {
+                    String[] ausgeleseneZeile = line.split(";");
+                    //ID
+                    int idf = Integer.parseInt(ausgeleseneZeile[0]);
+                    //TIMESTAMP
+//                    Pattern p = Pattern.compile("[\\d]*[^\\d]+([\\d]+)");
+                    String ldtf = ausgeleseneZeile[1];
+//                    String.valueOf(p.matcher(line));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+                    LocalDateTime dateTime = LocalDateTime.parse(ldtf, formatter);
+                    //SPEED
+//                  Pattern p1 = Pattern.compile("[\\d]*[^\\d]+[\\d]*[^\\d]+([\\d]+)");
+                    double speedf = Double.parseDouble(ausgeleseneZeile[2]);
+                    Windgeschwindigkeit object = new Windgeschwindigkeit(idf, dateTime, speedf);
+                    allLines.add(object);
+                    System.out.println(line);
+                    // read next line
+                    line = reader.readLine();
                 }
+                System.out.println("Werte der Datei wurden in ArrayList 'allLines' geschrieben");
+                reader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            return allLines;
         }
+        return allLines;
+
     }
 
+//    public static void auslesen() {
+//        System.out.println();
+//        System.out.println("Auslesen der bestehenden Datei:");
+//        System.out.println();
+//        BufferedReader reader;
+//
+//        try {
+//            reader = new BufferedReader(new FileReader("output\\windspeedObjekte1.txt"));
+//            String line = reader.readLine();
+//            while (line != null) {
+//                System.out.println(line);
+//                // read next line
+//                line = reader.readLine();
+//            }
+//            reader.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
-    public static void auslesen() {
-        System.out.println();
-        System.out.println("Auslesen der bestehenden Datei:");
-        System.out.println();
-        BufferedReader reader;
-
-        try {
-            reader = new BufferedReader(new FileReader("output\\windspeedObjekte1.txt"));
-            String line = reader.readLine();
-            while (line != null) {
-
-                System.out.println(line);
-                // read next line
-                line = reader.readLine();
-            }
-            reader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static boolean auswahlUser() {        //BUG doppelte Abfrage ??
+    public static int auswahlUser() {        //BUG doppelte Abfrage ??
 
         System.out.println("Was möchtest du tun? Wähle 1 für das Auslesen der Werte aus der Datei oder 2 um neue Messwerte hinzuzufügen: ");
         int auswahl = scanner.nextInt();
         scanner.nextLine();
-        return auswahl != 1;
+        return auswahl;
     }
 
     public static void prints() {
