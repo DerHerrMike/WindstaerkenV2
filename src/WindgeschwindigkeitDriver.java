@@ -26,7 +26,6 @@ public class WindgeschwindigkeitDriver {
         List<Windgeschwindigkeit> windSpeedList = new ArrayList<>(Objects.requireNonNull(readAllLines(path)));
         switch (auswahlUser()) {
             case 1 -> {
-
                 System.out.println("Ausgabe der Werte aus Datei:");
                 for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList) {
                     System.out.println(windgeschwindigkeit.toString());
@@ -62,8 +61,8 @@ public class WindgeschwindigkeitDriver {
                 int id = Windgeschwindigkeit.getLastId(path);
                 for (int i = 0; i < anzahl; i++) {
                     System.out.println("Bitte die " + (i + 1) + ". Windgeschwindigkeit eingeben: ");
-                    String speedInput = scanner.nextLine();             // unsauber noch
-                    double stundenKilometer = Double.parseDouble(speedInput);
+                    double stundenKilometer = scanner.nextDouble();
+                    scanner.nextLine();
                     id++;
                     Windgeschwindigkeit windgeschwindigkeit = new Windgeschwindigkeit(id, localDateTime, stundenKilometer);
                     windSpeedList.add(windgeschwindigkeit);
