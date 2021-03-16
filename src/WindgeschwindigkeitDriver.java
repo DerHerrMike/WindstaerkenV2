@@ -13,70 +13,79 @@ import java.util.*;
 public class WindgeschwindigkeitDriver {
 
     private static final Scanner scanner = new Scanner(System.in);
-    List <Double> sortingSpeeds = new LinkedList<>();
 
 
     public static void main(String[] args) throws IOException {
 
-        List<Windgeschwindigkeit> windSpeedList = new ArrayList<>();
         List<Double> speedsFromFile = new ArrayList<>();
         LocalDateTime localDateTime = LocalDateTime.now();
         Path path = Paths.get("output\\windspeedObjekte5.txt");
         if (Files.notExists(path)) {
             Files.createFile(path);
         }
-        if (auswahlUser() == 1) {
-            windSpeedList.addAll(readAllLines(path));
-            System.out.println();
-            for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList) {
-                System.out.println(windgeschwindigkeit.toString());
-            }
-            System.out.println("Keine weiteren Datensätze gespeichert.");
+        List<Windgeschwindigkeit> windSpeedList = new ArrayList<>(Objects.requireNonNull(readAllLines(path)));
+        switch (auswahlUser()) {
+            case 1 -> {
 
-            for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList) {
-                speedsFromFile.add(windgeschwindigkeit.getStundenKilometer());
-            }
-            ausgabeSortiert(speedsFromFile);
-
-
-            for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList){
-                if(windgeschwindigkeit.isWindstill()){
-                    System.out.println();
-                    System.out.println(windgeschwindigkeit.stringyfy());
+                System.out.println("Ausgabe der Werte aus Datei:");
+                for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList) {
+                    System.out.println(windgeschwindigkeit.toString());
                 }
+                System.out.println("Keine weiteren Datensätze gespeichert.");
+                System.out.println();
+                System.out.println("--- Ende der Ausgabe erreicht! ---");
             }
+            case 2 -> {
+                for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList) {
+                    speedsFromFile.add(windgeschwindigkeit.getStundenKilometer());
+                }
+                ausgabeSortiert(speedsFromFile);
+                System.out.println();
+                System.out.println("--- Ende der Ausgabe erreicht! ---");
+                System.exit(0);
 
+            }
+            case 3 -> {
+                for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList) {
+                    ausgabeWindstill(windgeschwindigkeit, speedsFromFile);
+                }
+                System.out.println();
+                System.out.println("--- Ende der Ausgabe erreicht! ---");
+                System.exit(0);
+            }
+            case 4 -> {
+                System.out.println();
+                System.out.println("Wie viele Geschwindigkeiten wollen Sie erfassen: ");
+                int anzahl = scanner.nextInt();
+                scanner.nextLine();
+                System.out.println();
+                int id = Windgeschwindigkeit.getLastId(path);
+                for (int i = 0; i < anzahl; i++) {
+                    System.out.println("Bitte die " + (i + 1) + ". Windgeschwindigkeit eingeben: ");
+                    String speedInput = scanner.nextLine();             // unsauber noch
+                    double stundenKilometer = Double.parseDouble(speedInput);
+                    id++;
+                    Windgeschwindigkeit windgeschwindigkeit = new Windgeschwindigkeit(id, localDateTime, stundenKilometer);
+                    windSpeedList.add(windgeschwindigkeit);
+                    windgeschwindigkeit.writeToFile(path);
+                    System.out.println();
+                }
+                prints(anzahl, windSpeedList, path);
+            }
+            default -> throw new IllegalStateException("Unexpected value: " + auswahlUser() + ". Bitte Zahl von 1 - 4 eingeben!");
 
-
-            System.exit(0);
-        }
-
-        System.out.println("-----------------------------------------------------------------------------------------------------------");
-        System.out.println();
-        System.out.println("Wie viele Geschwindigkeiten wollen Sie erfassen: ");
-        int anzahl = scanner.nextInt();
-        scanner.nextLine();
-        int id = Windgeschwindigkeit.getLastId(path);
-        for (int i = 0; i < anzahl; i++) {
-
-            System.out.println("Bitte die " + (i + 1) + ". Windgeschwindigkeit eingeben: ");
-            String speedInput = scanner.nextLine();             // unsauber noch
-            double stundenKilometer = Double.parseDouble(speedInput);
-            id++;
-            Windgeschwindigkeit windgeschwindigkeit = new Windgeschwindigkeit(id, localDateTime, stundenKilometer);
-            windSpeedList.add(windgeschwindigkeit);
-            windgeschwindigkeit.writeToFile(path);
-            System.out.println();
-        }
-        prints();
-        // aktuell erfasste Datensätze aus Liste holen
-        for (int j = 0; j < anzahl; j++) {
-            System.out.println(windSpeedList.get(j));
-            System.out.println();
         }
     }
 
-    private static void ausgabeSortiert(List<Double>listname){
+    private static void ausgabeWindstill(Windgeschwindigkeit windgeschwindigkeit, List<Double> windSpeedList) {
+
+        if (windgeschwindigkeit.isWindstill()) {
+            System.out.println();
+            System.out.println(windgeschwindigkeit.stringyfy());
+        }
+    }
+
+    private static void ausgabeSortiert(List<Double> listname) {
         System.out.println();
         Collections.sort(listname);
         System.out.println();
@@ -84,11 +93,12 @@ public class WindgeschwindigkeitDriver {
         System.out.println();
         System.out.println(listname);
         System.out.println();
-        Collections.sort(listname, Collections.reverseOrder());
+        listname.sort(Collections.reverseOrder());
         System.out.println("Ausgelesene Windgeschwindigkeiten absteigend sortiert:");
         System.out.println();
         System.out.println(listname);
         System.out.println();
+        System.out.println("-------------");
     }
 
     public static List<Windgeschwindigkeit> readAllLines(Path path) throws IOException {
@@ -116,7 +126,6 @@ public class WindgeschwindigkeitDriver {
                     double speedf = Double.parseDouble(ausgeleseneZeile[2]);
                     Windgeschwindigkeit object = new Windgeschwindigkeit(idf, dateTime, speedf);
                     allLines.add(object);
-//                    System.out.println(line);     // Gibt Daten in Rohfassung aus
                     line = reader.readLine();
                 }
                 reader.close();
@@ -130,22 +139,24 @@ public class WindgeschwindigkeitDriver {
     public static int auswahlUser() {
 
         System.out.println();
-        System.out.println("Was möchtest du tun? Wähle 1 für das Auslesen der Werte aus der Datei oder 2 um neue Messwerte hinzuzufügen: ");
+        System.out.println("Programm zur Verwaltung von gemessenen Windgeschwindigkeiten: Was möchtest du tun?");
+        System.out.println();
+        System.out.println("1 für Auslesen der Werte aus der Datei, 2 um Werte sortiert auszugeben, 3 zur Ausgabe der Werte 'windstill', oder 4 um neue Werte zu erfassen: ");
         int auswahl = scanner.nextInt();
         scanner.nextLine();
+        System.out.println();
         return auswahl;
     }
 
-    public static void prints() {
-        System.out.println("Datensätze in Datei geschrieben!");
-        System.out.println("------------------------------------------------------");
+    public static void prints(int anzahl, List<Windgeschwindigkeit> windSpeedList, Path path) {
+        System.out.println("Datensätze wurden in Datei ..\\" + path + " geschrieben!");
         System.out.println();
         System.out.println("Abfrage und Ausgabe für aktuelle Werte:");
         System.out.println();
+        for (int j = windSpeedList.size() - anzahl; j < windSpeedList.size(); j++) {
+            System.out.println(windSpeedList.get(j));
+        }
     }
-
-
-
 }
 
 
