@@ -7,11 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
-
+import java.util.*;
 
 
 public class WindgeschwindigkeitDriver {
@@ -34,12 +30,14 @@ public class WindgeschwindigkeitDriver {
                 System.out.println(windgeschwindigkeit.toString());
             }
             System.out.println("Keine weiteren Datensätze gespeichert.");
-               //hier weiter: alle werte auslesen, in Liste schreiben, sortieren, ausgeben
+            //hier weiter: alle werte auslesen, in Liste schreiben, sortieren, ausgeben
             List<Double> speedsFromFile = new ArrayList<>();
             for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList) {
                 speedsFromFile.add(windgeschwindigkeit.getStundenKilometer());
             }
+            System.out.println();
             Collections.sort(speedsFromFile);
+            System.out.println();
             System.out.println("Ausgelesene Windgeschwindigkeiten aufsteigend sortiert:");
             System.out.println();
             System.out.println(speedsFromFile);
@@ -48,12 +46,20 @@ public class WindgeschwindigkeitDriver {
             System.out.println("Ausgelesene Windgeschwindigkeiten absteigend sortiert:");
             System.out.println();
             System.out.println(speedsFromFile);
+            System.out.println();
+            System.out.println("--------------------------------------");
+
+            for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList){
+                if(windgeschwindigkeit.isWindstill()){
+                    System.out.println();
+                    System.out.println(windgeschwindigkeit.stringyfy());
+                }
+            }
+
+
+
             System.exit(0);
         }
-
-
-
-
 
         System.out.println("-----------------------------------------------------------------------------------------------------------");
         System.out.println();
@@ -132,6 +138,9 @@ public class WindgeschwindigkeitDriver {
         System.out.println("Abfrage und Ausgabe für aktuelle Werte:");
         System.out.println();
     }
+
+
+
 }
 
 

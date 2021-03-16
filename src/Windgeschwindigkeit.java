@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Windgeschwindigkeit extends WindDaten {
 
-    private final int id;
+    final int id;
     private final double stundenKilometer;
 
     // Konstruktor
@@ -87,18 +87,26 @@ public class Windgeschwindigkeit extends WindDaten {
         return getStundenKilometer() < 2.0;
     }
 
+    public int getId() {
+        return id;
+    }
+
     // ToString     add linebreak
 
     @Override
     public String toString() {
 
-        String sb = "Zeitpunkt der Messung: " + getZeitpunkt() + System.getProperty("line.separator") +
+        return "Zeitpunkt der Messung "+ getId()+ ": " + getZeitpunkt() + System.getProperty("line.separator") +
                 getStundenKilometer() + " km/h || " + getKnoten() + " Knoten. " +
                 "Das bedeutet Wert " + getBeaufort() + " auf der Beaufort Skala. Dies ergibt für 'ist windstill' = "
                 + isWindstill() + ", & für 'ist ein Orkan' = " + isOrkan() +
                 System.getProperty("line.separator");
-        return sb;
 
+    }
+
+    public String stringyfy() {
+        return "Zeitpunkt der Messung "+ getId()+ ": " + getZeitpunkt() + System.getProperty("line.separator") +
+                getStundenKilometer() + " km/h. Die Bedingung 'windstill' (< 2 km/h) ist erfüllt.";
     }
 
 }
