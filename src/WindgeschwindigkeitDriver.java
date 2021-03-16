@@ -13,11 +13,13 @@ import java.util.*;
 public class WindgeschwindigkeitDriver {
 
     private static final Scanner scanner = new Scanner(System.in);
+    List <Double> sortingSpeeds = new LinkedList<>();
 
 
     public static void main(String[] args) throws IOException {
 
         List<Windgeschwindigkeit> windSpeedList = new ArrayList<>();
+        List<Double> speedsFromFile = new ArrayList<>();
         LocalDateTime localDateTime = LocalDateTime.now();
         Path path = Paths.get("output\\windspeedObjekte5.txt");
         if (Files.notExists(path)) {
@@ -30,24 +32,12 @@ public class WindgeschwindigkeitDriver {
                 System.out.println(windgeschwindigkeit.toString());
             }
             System.out.println("Keine weiteren Datensätze gespeichert.");
-            //hier weiter: alle werte auslesen, in Liste schreiben, sortieren, ausgeben
-            List<Double> speedsFromFile = new ArrayList<>();
+
             for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList) {
                 speedsFromFile.add(windgeschwindigkeit.getStundenKilometer());
             }
-            System.out.println();
-            Collections.sort(speedsFromFile);
-            System.out.println();
-            System.out.println("Ausgelesene Windgeschwindigkeiten aufsteigend sortiert:");
-            System.out.println();
-            System.out.println(speedsFromFile);
-            System.out.println();
-            Collections.sort(speedsFromFile, Collections.reverseOrder());
-            System.out.println("Ausgelesene Windgeschwindigkeiten absteigend sortiert:");
-            System.out.println();
-            System.out.println(speedsFromFile);
-            System.out.println();
-            System.out.println("--------------------------------------");
+            ausgabeSortiert(speedsFromFile);
+
 
             for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList){
                 if(windgeschwindigkeit.isWindstill()){
@@ -84,6 +74,21 @@ public class WindgeschwindigkeitDriver {
             System.out.println(windSpeedList.get(j));
             System.out.println();
         }
+    }
+
+    private static void ausgabeSortiert(List<Double>listname){
+        System.out.println();
+        Collections.sort(listname);
+        System.out.println();
+        System.out.println("Ausgelesene Windgeschwindigkeiten aufsteigend sortiert:");
+        System.out.println();
+        System.out.println(listname);
+        System.out.println();
+        Collections.sort(listname, Collections.reverseOrder());
+        System.out.println("Ausgelesene Windgeschwindigkeiten absteigend sortiert:");
+        System.out.println();
+        System.out.println(listname);
+        System.out.println();
     }
 
     public static List<Windgeschwindigkeit> readAllLines(Path path) throws IOException {
