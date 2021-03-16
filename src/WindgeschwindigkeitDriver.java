@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,8 +34,27 @@ public class WindgeschwindigkeitDriver {
                 System.out.println(windgeschwindigkeit.toString());
             }
             System.out.println("Keine weiteren Datensätze gespeichert.");
+               //hier weiter: alle werte auslesen, in Liste schreiben, sortieren, ausgeben
+            List<Double> speedsFromFile = new ArrayList<>();
+            for (Windgeschwindigkeit windgeschwindigkeit : windSpeedList) {
+                speedsFromFile.add(windgeschwindigkeit.getStundenKilometer());
+            }
+            Collections.sort(speedsFromFile);
+            System.out.println("Ausgelesene Windgeschwindigkeiten aufsteigend sortiert:");
+            System.out.println();
+            System.out.println(speedsFromFile);
+            System.out.println();
+            Collections.sort(speedsFromFile, Collections.reverseOrder());
+            System.out.println("Ausgelesene Windgeschwindigkeiten absteigend sortiert:");
+            System.out.println();
+            System.out.println(speedsFromFile);
             System.exit(0);
         }
+
+
+
+
+
         System.out.println("-----------------------------------------------------------------------------------------------------------");
         System.out.println();
         System.out.println("Wie viele Geschwindigkeiten wollen Sie erfassen: ");

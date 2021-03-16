@@ -64,6 +64,8 @@ public class Windgeschwindigkeit extends WindDaten {
         return stundenKilometer;
     }
 
+
+
     public double getKnoten() {
 
         return (double) Math.round((((stundenKilometer / 1.852)) * 100.00) / 100);
@@ -96,10 +98,7 @@ public class Windgeschwindigkeit extends WindDaten {
                 + isWindstill() + ", & für 'ist ein Orkan' = " + isOrkan() +
                 System.getProperty("line.separator");
         return sb;
-//                ""+leer()+">> Zeitpunkt der Messung: " + getZeitpunkt() + ". Geschwindigkeit in verschiedenen Einheiten = "
-//                + getStundenKilometer() + " km/h || " + getKnoten() + " Knoten. Das bedeutet Wert "
-//                + getBeaufort() + " auf der Beaufort Skala. Somit ergibt sich für 'ist windstill' = "
-//                + isWindstill() + ", und für 'ist ein Orkan' = " + isOrkan() + "  <<";
+
     }
 
 }
