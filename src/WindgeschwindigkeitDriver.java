@@ -19,10 +19,11 @@ public class WindgeschwindigkeitDriver {
 
         List<Double> speedsFromFile = new ArrayList<>();
         LocalDateTime localDateTime = LocalDateTime.now();
-        Path path = Paths.get("output\\windspeedObjekte5.txt");
+        Path path = Paths.get("output\\windspeedsObjekte5.txt");
         if (Files.notExists(path)) {
             Files.createFile(path);
         }
+
         List<Windgeschwindigkeit> windSpeedList = new ArrayList<>(Objects.requireNonNull(readAllLines(path)));
         switch (auswahlUser()) {
             case 1 -> {
@@ -72,7 +73,6 @@ public class WindgeschwindigkeitDriver {
                 prints(anzahl, windSpeedList, path);
             }
             default -> throw new IllegalStateException("Unexpected value: " + auswahlUser() + ". Bitte Zahl von 1 - 4 eingeben!");
-
         }
     }
 
